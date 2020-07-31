@@ -1,5 +1,8 @@
 package com.starbun.bot;
 
+import com.starbun.bot.util.Filter;
+import com.starbun.bot.util.VoiceChannelCloser;
+import com.starbun.bot.util.WordFilter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
@@ -10,10 +13,8 @@ import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -39,26 +40,24 @@ public class Bot extends ListenerAdapter {
     private Boolean debugMode;
     @Value("${bot.id}")
     private long thisBotId;
+    private Filter filter;
+    private Category dynamicVoiceChannels;
+    private WordFilter wordFilter;
 
     @Autowired
     public void setFilter(Filter filter) {
         this.filter = filter;
     }
 
-    private Filter filter;
-    private Category dynamicVoiceChannels;
-
     @Autowired
     public void setWordFilter(WordFilter wordFilter) {
         this.wordFilter = wordFilter;
     }
 
-    private WordFilter wordFilter;
-
-
     @Override
     public void onReady(@Nonnull ReadyEvent event){
         super.onReady(event);
+        wordFilter.startupCensoring(event);
         Guild guild = event.getJDA().getGuildById(ourGuildId);
         assert guild != null;
         Optional<Category> optionalCategory = guild.getCategories()

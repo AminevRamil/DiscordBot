@@ -1,5 +1,6 @@
-package com.starbun.bot;
+package com.starbun.bot.util;
 
+import com.starbun.bot.Bot;
 import com.starbun.bot.commands.Command;
 import com.starbun.bot.commands.CommandType;
 import com.starbun.bot.exceptions.CommandException;

@@ -1,4 +1,4 @@
-package com.starbun.bot;
+package com.starbun.bot.util;
 
 import lombok.Data;
 import net.dv8tion.jda.api.entities.VoiceChannel;

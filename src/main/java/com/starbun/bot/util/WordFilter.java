@@ -1,4 +1,4 @@
-package com.starbun.bot;
+package com.starbun.bot.util;
 
 import com.google.common.collect.ImmutableList;
 import net.dv8tion.jda.api.entities.Message;
