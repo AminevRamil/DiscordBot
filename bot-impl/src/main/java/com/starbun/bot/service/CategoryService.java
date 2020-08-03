@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 @RequiredArgsConstructor
 public class CategoryService {
 
-    @Value("${com.starbun.bot.dynamic_voice_channel}")
+    @Value("${bot.dynamic_voice_channel}")
     private String dynamicVoiceCategoryName;
 
     public Category getDynamicVoiceCategory(Guild guild) {

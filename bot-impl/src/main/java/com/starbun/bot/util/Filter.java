@@ -31,7 +31,7 @@ public class Filter {
     private final BeanFactory beanFactory;
     private Pattern commandPattern;
 
-    @Value("${com.starbun.bot.prefix}")
+    @Value("${bot.bot.prefix}")
     private String prefix;
 
     @Value("#{'${bot.prefix}'.length()}")

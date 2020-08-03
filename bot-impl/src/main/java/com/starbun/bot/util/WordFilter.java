@@ -18,9 +18,9 @@ public class WordFilter {
 
     final private static List<String> blockList = ImmutableList.<String>builder()
             .add("говнокод").add("php").add("javascript").build();
-    @Value("${com.starbun.bot.id}")
+    @Value("${bot.bot.id}")
     private long thisBotId;
-    @Value("${com.starbun.bot.test_channel_id}")
+    @Value("${bot.test_channel_id}")
     private long testChannelId;
 
     public void startupCensoring(@Nonnull ReadyEvent event){

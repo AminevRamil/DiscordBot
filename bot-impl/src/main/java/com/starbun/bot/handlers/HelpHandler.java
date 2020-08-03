@@ -13,7 +13,7 @@ import java.awt.*;
 @Component
 public class HelpHandler implements CommandHandler<HelpCommand> {
 
-    @Value("${com.starbun.bot.prefix}")
+    @Value("${bot.prefix}")
     private String prefix;
 
     @Override

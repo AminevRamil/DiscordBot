@@ -15,10 +15,8 @@ import java.util.List;
 
 
 @Configuration
-@ComponentScan(basePackages = "com.starbun.bot")
-@PropertySource(value = "classpath:application.yml")
 public class ApplicationConfiguration {
-    @Value("${com.starbun.bot.token}")
+    @Value("${bot.token}")
     private String token;
 
     @Bean

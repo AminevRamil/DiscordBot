@@ -24,7 +24,7 @@ public class VoiceListener extends ListenerAdapter {
     private final VoiceChannelService voiceChannelService;
     private final CategoryService categoryService;
 
-    @Value("${com.starbun.bot.guild_id}")
+    @Value("${bot.guild_id}")
     private long ourGuildId;
 
     @Override

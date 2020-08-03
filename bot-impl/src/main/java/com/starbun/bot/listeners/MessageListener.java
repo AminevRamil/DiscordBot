@@ -23,14 +23,14 @@ public class MessageListener extends ListenerAdapter {
     final private WordFilter wordFilter;
     private Filter filter;
 
-    @Value("${com.starbun.bot.prefix}")
+    @Value("${bot.prefix}")
     private String prefix;
 
     @Setter
-    @Value("${com.starbun.bot.debug}")
+    @Value("${bot.debug}")
     private Boolean debugMode;
 
-    @Value("${com.starbun.bot.id}")
+    @Value("${bot.id}")
     private long thisBotId;
 
     //Circular Reference avoid
