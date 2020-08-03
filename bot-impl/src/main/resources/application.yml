@@ -1,0 +1,9 @@
+bot:
+  debug: true
+  dynamic_voice_channel: DYNAMIC (R)
+  guild_id: 731154486176907289
+  id: 732146645961015326
+  prefix: '!sbb'
+  test_channel_id: 732200062939168840
+  token: YOUR_TOKEN_HERE
+  
