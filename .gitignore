@@ -1,4 +1,4 @@
 /.idea/
 /target/
-/bot-impl/src/main/resources/application.yml
+# /bot-impl/src/main/resources/application.yml
 /DiscordBot.iml
