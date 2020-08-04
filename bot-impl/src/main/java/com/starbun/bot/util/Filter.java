@@ -31,7 +31,7 @@ public class Filter {
     private final BeanFactory beanFactory;
     private Pattern commandPattern;
 
-    @Value("${bot.bot.prefix}")
+    @Value("${bot.prefix}")
     private String prefix;
 
     @Value("#{'${bot.prefix}'.length()}")
@@ -44,15 +44,23 @@ public class Filter {
         // Пока не осилил как в Guava создать карту с множественным ключом для одного значения
         Arrays.stream(CommandType.values()).forEach(commandType -> {
             List<String> aliases = commandType.getAliases();
-            aliases.forEach(alias -> stringToCommandName.put(alias, commandType.getCorrespondCommandHandler().getSimpleName()));
+            aliases.forEach(alias -> stringToCommandName.put(alias, classToBeanConverter(commandType.getCorrespondCommandHandler())));
         });
+    }
+
+    private String classToBeanConverter(Class<?> clazz) {
+        String className = clazz.getSimpleName();
+        StringBuilder beanDefinition = new StringBuilder(className);
+        beanDefinition.deleteCharAt(0);
+        beanDefinition.insert(0, className.substring(0, 1).toLowerCase());
+        return beanDefinition.toString();
     }
 
     public boolean isCommand(String message) {
         return commandPattern.matcher(message).matches();
     }
 
-    public void execute(MessageReceivedEvent event) throws Exception {
+    public void execute(MessageReceivedEvent event) {
         String rawMessage = event.getMessage().getContentRaw().trim();
 
         if (rawMessage.equals(prefix)) {
@@ -62,16 +70,12 @@ public class Filter {
 
         String coreCommand = rawMessage.split("\\s")[0].toLowerCase();
         log.info("coreCommand: " + coreCommand);
-        String commandHandlerClassName = stringToCommandName.get(coreCommand);
-        if (commandHandlerClassName == null) {
+        String commandHandlerBean = stringToCommandName.get(coreCommand);
+        if (commandHandlerBean == null) {
             throw new CommandException("Несуществующая команда");
         }
-        // TODO Записать в мапу название бинов. Произвести преобразование ниже в методе init()
-        StringBuilder beanDefinition = new StringBuilder(commandHandlerClassName);
-        beanDefinition.deleteCharAt(0);
-        beanDefinition.insert(0, commandHandlerClassName.substring(0,1).toLowerCase());
 
-        CommandHandler<? extends Command> commandHandler = (CommandHandler<?>)beanFactory.getBean(beanDefinition.toString());
+        CommandHandler<? extends Command> commandHandler = (CommandHandler<?>) beanFactory.getBean(commandHandlerBean);
         Command command = commandHandler.prepare(event);
         command.execute();
     }

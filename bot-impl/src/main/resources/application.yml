@@ -6,4 +6,8 @@ bot:
   prefix: '!sbb'
   test_channel_id: 732200062939168840
   token: YOUR_TOKEN_HERE
-  
+blocklist:
+  words:
+    говнокод
+    php
+    patriots

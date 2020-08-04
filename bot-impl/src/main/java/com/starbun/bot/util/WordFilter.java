@@ -1,11 +1,11 @@
 package com.starbun.bot.util;
 
-import com.google.common.collect.ImmutableList;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 @Component
 public class WordFilter {
 
-    final private static List<String> blockList = ImmutableList.<String>builder()
-            .add("говнокод").add("php").add("javascript").build();
-    @Value("${bot.bot.id}")
+    @Value("#{'${blocklist.words}'.split(' ')}")
+    private List<String> blockList;
+    @Value("${bot.id}")
     private long thisBotId;
     @Value("${bot.test_channel_id}")
     private long testChannelId;
