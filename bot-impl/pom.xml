@@ -17,6 +17,11 @@
             <artifactId>bot-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.starbun.bot</groupId>
+            <artifactId>bot-db</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>
